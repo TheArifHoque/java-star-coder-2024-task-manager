@@ -8,13 +8,18 @@ spring:
     url: jdbc:postgresql://localhost:5432/taskmanagerdb
     username: postgres
     password: root
+    driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
     show-sql: true
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
+    database: postgresql
+  sql:
+    init:
+      mode: always
 
 jwt:
   secret: mysecret
-  jwtExp: 30000
+  jwtExp: 3000000
