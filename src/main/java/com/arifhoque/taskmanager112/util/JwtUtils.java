@@ -32,7 +32,7 @@ public class JwtUtils {
      * @param userDetails
      * @return
      */
-    private String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails) {
         List<String> authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
         Map<String, Object> claims = new HashMap<>();
