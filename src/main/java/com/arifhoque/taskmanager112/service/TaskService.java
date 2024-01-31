@@ -37,9 +37,10 @@ public class TaskService {
     /**
      * This method is for updating an existing task. User can edit anything other than taskId
      * @param task
+     * @param taskId
      */
-    public void updateTask(Task task) {
-        Task existingTask = taskRepo.findTaskById(task.getId());
+    public void updateTask(Task task, Long taskId) {
+        Task existingTask = taskRepo.findTaskById(taskId);
         existingTask.setTitle(task.getTitle());
         existingTask.setDescription(task.getDescription());
         existingTask.setStatus(task.getStatus());
@@ -48,10 +49,10 @@ public class TaskService {
 
     /**
      * This method is for deleting task
-     * @param task
+     * @param taskId
      */
-    public void deleteTask(Task task) {
-        Task existingTask = taskRepo.findTaskById(task.getId());
+    public void deleteTask(Long taskId) {
+        Task existingTask = taskRepo.findTaskById(taskId);
         taskRepo.delete(existingTask);
     }
 }
