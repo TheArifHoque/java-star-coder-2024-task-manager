@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /task-manager-app
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taskmanagerdb
+    username: postgres
+    password: root
+  jpa:
+    open-in-view: false
+    show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+
+jwt:
+  secret: mysecret
+  jwtExp: 30000
