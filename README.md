@@ -8,9 +8,9 @@ To use this application you have to register yourself and then login for further
 ### Registration Process 
 ***
 The parameters to register user are FirstName, LastName, Email, Username, Password.
-![](/home/arif/Pictures/register.png)
+![](/images/register.png)
 This will store in configured database. Password given here will be encoded by BCryptEncoder.
-![](/home/arif/Pictures/databse.png)
+![](/images/databse.png)
 After successful registration a success message will be shown.
 ![](/home/arif/Pictures/register-successful.png)
 If different user tries to register with same email or username it'll not let the user register
