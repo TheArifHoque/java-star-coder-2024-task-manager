@@ -61,7 +61,7 @@ public class TaskController {
         User existEmail = userService.findUserByEmail(user.getEmail());
         User existUsername = userService.findUserByUsername(user.getUsername());
 
-        if (existEmail != null && existUsername != null) {
+        if (existEmail != null || existUsername != null) {
             return new ResponseEntity<>(Map.of("message", "User already exists!"), HttpStatus.CONFLICT);
         }
         userService.saveUser(user);
