@@ -7,9 +7,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,6 +17,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 
 /**
  * Configuration class for defining security in the application
+ *
  * @author Ariful Hoque
  */
 @Configuration
@@ -34,16 +34,20 @@ public class WebSecurityConfig {
     /**
      * Define a bean for the PasswordEncoder
      * For keeping it easy at initial phase NoOpPasswordEncoder is used
+     * Used BcryptPasswordEncoder
+     *
      * @return the password encoder bean
      */
     @Bean
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+//        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     /**
      * Defines a bean for the AuthenticationManager
+     *
      * @param authenticationConfiguration the AuthenticationConfiguration
      * @return AuthenticationManager bean
      * @throws Exception if an error occurs during configuration
@@ -56,6 +60,8 @@ public class WebSecurityConfig {
 
     /**
      * Defined SecurityFilterChain for handling security configurations
+     * As I couldn't integrate frontend due to some issue with CORS I kept CSRF to test my code in PostMan
+     *
      * @param httpSecurity the HttpSecurity object to configure security filters
      * @return the SecurityFilterChain instance defining the order and behavior for security filters
      * @throws Exception if an error occurs during configuration
@@ -67,7 +73,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(requestConfigrer -> requestConfigrer
                         .requestMatchers(antMatcher("/api/login/**")).permitAll()
                         .requestMatchers(antMatcher("/api/register/**")).permitAll()
-                        .requestMatchers(antMatcher("/api/tasks/**")).hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                        .requestMatchers(antMatcher("/api/tasks/**")).hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .anyRequest().permitAll()
                 )
                 .userDetailsService(customerDetailsService)
